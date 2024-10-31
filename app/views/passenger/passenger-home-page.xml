@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" 
+      xmlns:maps="@nativescript/google-maps"
+      navigatingTo="onNavigatingTo" class="page">
+    
+    <ActionBar title="Home" class="action-bar">
+        <ActionItem tap="{{ onProfile }}" ios.position="right" android.position="actionBar">
+            <Label text="Profile" class="action-item" />
+        </ActionItem>
+    </ActionBar>
+
+    <GridLayout rows="*, auto">
+        <!-- Map View -->
+        <maps:MapView row="0" id="map" 
+                      latitude="{{ userLocation.latitude }}"
+                      longitude="{{ userLocation.longitude }}"
+                      zoom="15" />
+
+        <!-- Request Ride Panel -->
+        <StackLayout row="1" class="bg-white p-4 rounded-t-lg shadow-lg">
+            <GridLayout columns="*, auto" class="mb-4">
+                <TextField col="0" hint="Where to?" text="{{ destination }}"
+                          class="input p-2 border-b border-gray-300" />
+                <Button col="1" text="Set" tap="{{ onSetDestination }}"
+                        class="btn btn-primary ml-2" />
+            </GridLayout>
+
+            <Label text="{{ estimatedPrice }}" class="text-lg font-bold text-center mb-2" />
+            
+            <Button text="{{ requestButtonText }}" tap="{{ onRequestRide }}"
+                    class="btn p-4 rounded-lg" 
+                    class="{{ isRequesting ? 'bg-red-500' : 'bg-blue-500' }}"
+                    class="text-white" />
+        </StackLayout>
+    </GridLayout>
+</Page>
